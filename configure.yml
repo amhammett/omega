@@ -1,0 +1,19 @@
+---
+ - hosts: "all"
+
+   gather_facts: false
+
+   tasks:
+    - name: ensure ansible is updated
+      apt: name=ansible state=latest
+      sudo: yes
+
+    - name: verify ansible
+      shell: ansible --version
+
+    - name: ensure git is updated
+      apt: name=git state=latest
+      sudo: yes
+
+    - name: verify git
+      shell: git --version
