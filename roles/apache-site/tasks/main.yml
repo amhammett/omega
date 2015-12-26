@@ -1,0 +1,22 @@
+---
+ - fail: requires variable sitename
+   when: sitename is undefined
+
+ - name: create site directories
+   file: path={{item}} state=directory mode=0755
+   with_items:
+    - /var/www/{{sitename}}
+    - /var/www/{{sitename}}/html
+    - /var/www/{{sitename}}/logs
+   sudo: yes
+
+ - name: push out {{sitename}} config
+   copy: src="{{playbook_dir}}/roles/amh-io/files/amh-io.conf" dest="/etc/apache2/sites-available/amh-io.conf"
+   sudo: yes
+
+ - name: enable site {{sitename}}
+   shell: a2ensite {{sitename}}
+   sudo: yes
+   register: enable_sitename
+   failed_when: "'ERROR' in enable_sitename.stdout"
+   changed_when: "not 'already enabled' in enable_sitename.stdout"

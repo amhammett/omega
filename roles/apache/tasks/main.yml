@@ -1,0 +1,8 @@
+---
+ - name: ensure apache is updated
+   apt: name=apache2 state=latest
+   sudo: yes
+
+ - name: verify apache
+   shell: apache --version
+

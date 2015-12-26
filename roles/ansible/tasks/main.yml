@@ -1,0 +1,8 @@
+---
+ - name: ensure ansible is updated
+   apt: name=ansible state=latest
+   sudo: yes
+
+ - name: verify ansible
+   shell: ansible --version
+
