@@ -21,3 +21,7 @@
    register: enable_sitename
    failed_when: "'ERROR' in enable_sitename.stdout"
    changed_when: "not 'already enabled' in enable_sitename.stdout"
+
+ - name: reload apache
+   shell: service apache2 restart
+   sudo: yes
