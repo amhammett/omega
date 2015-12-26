@@ -1,5 +1,5 @@
 ---
- - fail: requires variable sitename
+ - fail: msg="requires variable sitename"
    when: sitename is undefined
 
  - name: create site directories
@@ -10,6 +10,7 @@
     - /var/www/{{sitename}}/logs
    sudo: yes
 
+# todo: this should be a git clone/sync
  - name: push out {{sitename}} config
    copy: src="{{playbook_dir}}/roles/amh-io/files/amh-io.conf" dest="/etc/apache2/sites-available/amh-io.conf"
    sudo: yes
